@@ -9,6 +9,9 @@ screen = pygame.display.set_mode((screen_width, screen_height)) # set screen
 pygame.display.set_caption(game_name)
 clock = pygame.time.Clock() # set max fps timer
 
+# set icon
+pygame.display.set_icon(pygame.image.load(game_logo_url))
+
 # add music
 pygame.mixer.music.load(default_track_url)
 pygame.mixer.music.play(loops, default_track_offset)

@@ -12,15 +12,16 @@ ground_offset = 70
 ground_x_offset = 0
 
 # name of the game
-game_name = 'Endless Runner'
+game_name = 'Desert Rex'
+game_logo_url = "Assets/Images/Player/Run (8).png"
 
 # Font for score
-font_url = None
+font_url = "Assets/Fonts/Hubballi-Regular.ttf"
 font_size = 50
 font_color = "#FF00FF"
 
 # Font for score
-restart_font_url = None
+restart_font_url = "Assets/Fonts/Hubballi-Regular.ttf"
 restart_font_size = 20
 restart_font_color = "#000000"
 restart_message = "Press R to restart"
