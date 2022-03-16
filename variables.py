@@ -131,7 +131,7 @@ loops = -1
 
 # default track
 default_track_url = "Assets/Music/James_Scott_-_01_-_Frog_Legs_Rag_1906_piano_roll.mp3"
-default_track_offset = 0.5
+default_track_offset = 1
 
 # death track
 death_track_url = "Assets/Music/Missing-You.mp3"
@@ -141,9 +141,9 @@ death_music_startable = True
 # crash tone
 crash_tone_url = "Assets/Music/mixkit-confirmation-tone-2867.mp3"
 crash_tone_offset = 0
-crash_loop = 1
+crash_loop = 0
 
 # success tone
 success_tone_url = "Assets/Music/mixkit-game-success-alert-2039.mp3"
 success_tone_offset = 0
-success_loop = 1
+success_loop = 0

@@ -10,12 +10,8 @@ pygame.display.set_caption(game_name)
 clock = pygame.time.Clock() # set max fps timer
 
 # add music
-default_track = pygame.mixer.Sound(default_track_url)
-death_music = pygame.mixer.Sound(death_track_url)
-crash_tone = pygame.mixer.Sound(crash_tone_url)
-success_tone = pygame.mixer.Sound(success_tone_url)
-
-default_track.play(loops, default_track_offset)
+pygame.mixer.music.load(default_track_url)
+pygame.mixer.music.play(loops, default_track_offset)
 
 # background surface
 desert_background = pygame.image.load(background_url, background_namehint).convert_alpha()
@@ -143,12 +139,14 @@ def death_music():
 
     if death_music_startable:
         death_music_startable = False
-    
-        # play crash tone
-        crash_tone.play(crash_loop, crash_tone_offset)
 
         # play death music
-        death_music.play(loops, death_track_offset)
+        death_music_track = pygame.mixer.music.load(death_track_url)
+        pygame.mixer.music.play(loops, death_track_offset)
+    
+        # play crash tone
+        crash_tone = pygame.mixer.Sound(crash_tone_url)
+        crash_tone.play(crash_loop, crash_tone_offset)
 
 # draw ground
 def draw_ground(x_offset):
@@ -348,6 +346,7 @@ while True:
                 score += 1
 
                 # play success sound
+                success_tone = pygame.mixer.Sound(success_tone_url)
                 success_tone.play(success_loop, success_tone_offset)
             else:
                 death_music()
