@@ -109,7 +109,7 @@ player_death_7_url = "Assets/Images/Player/Dead (7).png"
 player_death_8_url = "Assets/Images/Player/Dead (8).png"
 
 # enemy speed
-speed_enemy = 5
+enemy_speed = 5
 
 # enemy generator seed
 # higher => less enemies

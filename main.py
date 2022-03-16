@@ -135,7 +135,6 @@ def draw_ground(x_offset):
 def update_player():
     global player_current
     global running
-    global scoreboard
 
     if player_current == player_surface_run_1:
         player_current = player_surface_run_2
@@ -191,7 +190,6 @@ def update_player():
         player_current = player_surface_death_7
     elif player_current == player_surface_death_7:
         player_current = player_surface_death_8
-        scoreboard = f"Your final score is: {score} || Press R to restart"
     elif player_current == player_surface_death_8:
         running = False
 
@@ -200,12 +198,23 @@ def restore_defaults():
     global running
     global score
     global enemies
+    global player_current
+    global player_speed
+    global enemy_speed
+    global player_y_pos
 
-    running = true
+
+    running = True
     score = 0
     enemies.clear()
+    player_current = player_surface_run_1
+    enemy_speed = player_speed = 5
+    player_y_pos = default_player_y_pos
 
 while True:
+    # generate scorboard
+    scoreboard = f"Score: {score}"
+
     # events
     for event in pygame.event.get():
         # quit event
@@ -215,7 +224,7 @@ while True:
         
         # spacebar click
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
+            if event.key == pygame.K_SPACE and player_speed != 0:
                 if(jumps != 2):
                     up = True
                     down = False
@@ -257,7 +266,7 @@ while True:
     if delay == 5:
         update_player()
 
-        ground_x_offset += speed_enemy
+        ground_x_offset += enemy_speed
 
         if(ground_x_offset > ground_width):
             ground_x_offset = 0
@@ -280,7 +289,7 @@ while True:
     # remove enemies once they are gone from the screen and calculate score
     for enemy in enemies:
         screen.blit(enemy[0], (enemy[1], enemy[2]))
-        enemy[1] -= speed_enemy
+        enemy[1] -= enemy_speed
 
     enemies_copy = enemies.copy();
     enemies.clear()
@@ -291,7 +300,8 @@ while True:
                 score += 1
             else:
                 player_current = player_surface_death_1
-                speed_enemy = 0
+                enemy_speed = 0
+                player_speed = 0
             enemy[3] = True
 
         if(enemy[1] < 0): 
