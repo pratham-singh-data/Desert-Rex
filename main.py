@@ -195,6 +195,16 @@ def update_player():
     elif player_current == player_surface_death_8:
         running = False
 
+# restart functionality
+def restore_defaults():
+    global running
+    global score
+    global enemies
+
+    running = true
+    score = 0
+    enemies.clear()
+
 while True:
     # events
     for event in pygame.event.get():
@@ -214,6 +224,9 @@ while True:
 
                     if(jump_ceiling > jump_ceiling_global):
                         jump_ceiling -= 100
+            
+            if event.key == pygame.K_r:
+                restore_defaults()
 
 
     if(up):
