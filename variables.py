@@ -19,6 +19,10 @@ font_url = None
 font_size = 50
 font_color = "#FF00FF"
 
+# scoreboard
+score = 0
+scoreboard = f"Score: {score}"
+
 # background image
 background_url = "Assets/Images/Background/Background.png"
 background_namehint = "Desert Background Image"
@@ -49,15 +53,20 @@ enemy_cactus3_height = 45
 # player dimensions
 player_run_namehint = "Player run animation"
 player_jump_namehint = "Player jump animation"
+player_death_namehint = "Player death animation"
 player_width = 60
 player_height = 70
 player_speed = 5
 player_image_adjustment = 10
+player_x_image_adjustment = 20
 player_y_pos = screen_height - ground_offset - player_height + player_image_adjustment
 default_player_y_pos = player_y_pos
 
 # delay
 delay = 0
+
+# running state
+running = True
 
 # jump check
 up = False
@@ -88,6 +97,16 @@ player_jump_9_url = "Assets/Images/Player/Jump (9).png"
 player_jump_10_url = "Assets/Images/Player/Jump (10).png"
 player_jump_11_url = "Assets/Images/Player/Jump (11).png"
 player_jump_12_url = "Assets/Images/Player/Jump (12).png"
+
+# player death
+player_death_1_url = "Assets/Images/Player/Dead (1).png"
+player_death_2_url = "Assets/Images/Player/Dead (2).png"
+player_death_3_url = "Assets/Images/Player/Dead (3).png"
+player_death_4_url = "Assets/Images/Player/Dead (4).png"
+player_death_5_url = "Assets/Images/Player/Dead (5).png"
+player_death_6_url = "Assets/Images/Player/Dead (6).png"
+player_death_7_url = "Assets/Images/Player/Dead (7).png"
+player_death_8_url = "Assets/Images/Player/Dead (8).png"
 
 # enemy speed
 speed_enemy = 5

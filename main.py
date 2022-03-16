@@ -93,19 +93,40 @@ player_surface_jump_11 = pygame.transform.scale(player_surface_jump_11, (player_
 player_surface_jump_12 = pygame.image.load(player_jump_12_url, player_jump_namehint).convert_alpha()
 player_surface_jump_12 = pygame.transform.scale(player_surface_jump_12, (player_width, player_height))
 
-# current enemies
-# [enemy, enemy_width, x_pos, y_pos]
-enemies = []
+# player death
+player_surface_death_1 = pygame.image.load(player_death_1_url, player_death_namehint).convert_alpha()
+player_surface_death_1 = pygame.transform.scale(player_surface_death_1, (player_width, player_height))
 
-# current score
-score = 0
+player_surface_death_2 = pygame.image.load(player_death_2_url, player_death_namehint).convert_alpha()
+player_surface_death_2 = pygame.transform.scale(player_surface_death_2, (player_width, player_height))
+
+player_surface_death_3 = pygame.image.load(player_death_3_url, player_death_namehint).convert_alpha()
+player_surface_death_3 = pygame.transform.scale(player_surface_death_3, (player_width, player_height))
+
+player_surface_death_4 = pygame.image.load(player_death_4_url, player_death_namehint).convert_alpha()
+player_surface_death_4 = pygame.transform.scale(player_surface_death_4, (player_width, player_height))
+
+player_surface_death_5 = pygame.image.load(player_death_5_url, player_death_namehint).convert_alpha()
+player_surface_death_5 = pygame.transform.scale(player_surface_death_5, (player_width, player_height))
+
+player_surface_death_6 = pygame.image.load(player_death_6_url, player_death_namehint).convert_alpha()
+player_surface_death_6 = pygame.transform.scale(player_surface_death_6, (player_width, player_height))
+
+player_surface_death_7 = pygame.image.load(player_death_7_url, player_death_namehint).convert_alpha()
+player_surface_death_7 = pygame.transform.scale(player_surface_death_7, (player_width, player_height))
+
+player_surface_death_8 = pygame.image.load(player_death_8_url, player_death_namehint).convert_alpha()
+player_surface_death_8 = pygame.transform.scale(player_surface_death_8, (player_width, player_height))
+
+# current enemies
+# [enemy, enemy_width, x_pos, y_pos, dodged]
+enemies = []
 
 # current player
 player_current = player_surface_run_1
 
 # Font
 text_font = pygame.font.Font(font_url, font_size)
-text_surface = text_font.render(game_name, False, font_color)
 
 def draw_ground(x_offset):
     for i in range(0 - x_offset, screen_width, ground_width):
@@ -113,6 +134,9 @@ def draw_ground(x_offset):
 
 def update_player():
     global player_current
+    global running
+    global scoreboard
+
     if player_current == player_surface_run_1:
         player_current = player_surface_run_2
     elif player_current == player_surface_run_2:
@@ -153,6 +177,23 @@ def update_player():
         player_current = player_surface_jump_12
     elif player_current == player_surface_jump_12:
         player_current = player_surface_run_1
+    elif player_current == player_surface_death_1:
+        player_current = player_surface_death_2
+    elif player_current == player_surface_death_2:
+        player_current = player_surface_death_3
+    elif player_current == player_surface_death_3:
+        player_current = player_surface_death_4
+    elif player_current == player_surface_death_4:
+        player_current = player_surface_death_5
+    elif player_current == player_surface_death_5:
+        player_current = player_surface_death_6
+    elif player_current == player_surface_death_6:
+        player_current = player_surface_death_7
+    elif player_current == player_surface_death_7:
+        player_current = player_surface_death_8
+        scoreboard = f"Your final score is: {score} || Press R to restart"
+    elif player_current == player_surface_death_8:
+        running = False
 
 while True:
     # events
@@ -193,13 +234,10 @@ while True:
             jumps = 0
             down = False
 
-    # update display
-    pygame.display.update()
-
     screen.blit(desert_background, (0, 0)) # add background
     draw_ground(ground_x_offset) # add ground
 
-    text_surface = text_font.render(f"Score: {score}", False, font_color)
+    text_surface = text_font.render(scoreboard, False, font_color)
     screen.blit(text_surface, (0, 0)) # add text
     screen.blit(player_current, (0, player_y_pos))
 
@@ -217,18 +255,16 @@ while True:
     # generate enemies
     generator = random.randint(0, 100)
     if(generator%gen_seed == 0):
-        generator1 = random.randint(0, 4)
+        generator1 = random.randint(0, 3)
 
         if(generator1 == 0):
-            pass
+            enemies.append([enemy_cactus1_surface, screen_width - enemy_cactus1_width, screen_height - ground_offset - enemy_cactus1_height, False])
         elif(generator1 == 1):
-            enemies.append([enemy_cactus1_surface, screen_width - enemy_cactus1_width, screen_height - ground_offset - enemy_cactus1_height])
+            enemies.append([enemy_cactus2_surface, screen_width - enemy_cactus2_width, screen_height - ground_offset - enemy_cactus2_height, False])
         elif(generator1 == 2):
-            enemies.append([enemy_cactus2_surface, screen_width - enemy_cactus2_width, screen_height - ground_offset - enemy_cactus2_height])
-        elif(generator1 == 3):
-            enemies.append([enemy_cactus3_surface, screen_width - enemy_cactus3_width, screen_height - ground_offset - enemy_cactus3_height])
+            enemies.append([enemy_cactus3_surface, screen_width - enemy_cactus3_width, screen_height - ground_offset - enemy_cactus3_height, False])
 
-    # remove enemies once they are gone from the screen
+    # remove enemies once they are gone from the screen and calculate score
     for enemy in enemies:
         screen.blit(enemy[0], (enemy[1], enemy[2]))
         enemy[1] -= speed_enemy
@@ -237,10 +273,23 @@ while True:
     enemies.clear()
 
     for enemy in enemies_copy:
-        if(enemy[1] < 0): continue
+        if(enemy[1] + player_x_image_adjustment < player_width and not enemy[3]):
+            if(enemy[2] >= player_y_pos + player_height):
+                score += 1
+            else:
+                player_current = player_surface_death_1
+                speed_enemy = 0
+            enemy[3] = True
+
+        if(enemy[1] < 0): 
+            continue
         enemies.append(enemy)
     
     enemies_copy.clear()
+
+    # update display
+    if running:
+        pygame.display.update()
 
     # set maximum fps limit
     clock.tick(fps)
