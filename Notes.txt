@@ -1,0 +1,59 @@
+initialise game engine
+    pygame.init()
+
+create screen
+    screen = pygame.display.set_mode((800. 400))
+    puy in an infinite loop
+
+Update screen:
+    pygame.display.update()
+
+Check for events:
+    while True:
+        # events
+        for event in pygame.event.get():
+
+quit event:
+    from sys import exit
+
+    if event.type == pygame.QUIT:
+        pygame.quit()
+        exit()
+
+Control framerate: 
+    To allow for proper speed and no inconsistence between envirnoments.
+    Be careful setting minimums as you cannot just tell the computer to run according to a secific speed.
+
+How to display images:
+    Surfaces in pygame:
+    1) Display Surface: The window shown to the user. Can only use one, cannot be hidden(Thing thge poster canvas)
+    2) Regular Surface: A single image. As many as needed can be added, only displayed if you put it on the display surface (People and brading on the poster)
+
+make a test surface:
+    test_surface = pygame.Surface((100, 200))
+
+Add to display:
+    screen.blit(test_surface, (0, 0))
+    bliz => block image transfer
+
+add color to a surface:
+    test_surface.fill(red)
+    of
+    test_surface.fill("#FF0000")
+
+Add an image:
+    desert_background = pygame.image.load("Assets/Images/Background.png", "Desert Background Image")
+    desert_background = pygame.transform.scale(desert_background, (width, height))
+
+    screen.blit(desert_background, (0, 0))
+
+Create Text:
+    1) Create a font file for style and size.
+    2) text_font = pygame.font.Font(font_url, font_size)
+    3) text_surface = tex_font.render(game_name, False. font_color)
+    4) Add surfce to screen with blit
+
+pygame does not handle PNG values well, to handle that:
+    surface.convert_alpha()
+
+Rectangles: Help you place your images more accurately, makes the hitn=box monitoring better.

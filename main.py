@@ -1,0 +1,246 @@
+# import libraries
+import pygame
+from sys import exit
+from numpy import random
+from variables import *
+
+pygame.init() # inirialise game engine
+screen = pygame.display.set_mode((screen_width, screen_height)) # set screen
+pygame.display.set_caption(game_name)
+clock = pygame.time.Clock() # set max fps timer
+
+# background surface
+desert_background = pygame.image.load(background_url, background_namehint).convert_alpha()
+desert_background = pygame.transform.scale(desert_background, (screen_width, screen_height))
+
+# ground surface
+ground_surface = pygame.image.load(ground_url, ground_namehint).convert_alpha()
+ground_surface = pygame.transform.scale(ground_surface, (ground_width, ground_height))
+
+# enemies
+# cactus1
+enemy_cactus1_surface = pygame.image.load(enemy_cactus1_url, enemy_cactus1_namehint).convert_alpha()
+enemy_cactus1_surface = pygame.transform.scale(enemy_cactus1_surface, (enemy_cactus1_width, enemy_cactus1_height))
+
+# cactus2
+enemy_cactus2_surface = pygame.image.load(enemy_cactus2_url, enemy_cactus2_namehint).convert_alpha()
+enemy_cactus2_surface = pygame.transform.scale(enemy_cactus2_surface, (enemy_cactus2_width, enemy_cactus2_height))
+
+# cactus3
+enemy_cactus3_surface = pygame.image.load(enemy_cactus3_url, enemy_cactus3_namehint).convert_alpha()
+enemy_cactus3_surface = pygame.transform.scale(enemy_cactus3_surface, (enemy_cactus3_width, enemy_cactus3_height))
+
+# player
+# running
+player_surface_run_1 = pygame.image.load(player_run_1_url, player_run_namehint).convert_alpha()
+player_surface_run_1 = pygame.transform.scale(player_surface_run_1, (player_width, player_height))
+
+player_surface_run_2 = pygame.image.load(player_run_2_url, player_run_namehint).convert_alpha()
+player_surface_run_2 = pygame.transform.scale(player_surface_run_2, (player_width, player_height))
+
+player_surface_run_3 = pygame.image.load(player_run_3_url, player_run_namehint).convert_alpha()
+player_surface_run_3 = pygame.transform.scale(player_surface_run_3, (player_width, player_height))
+
+player_surface_run_4 = pygame.image.load(player_run_4_url, player_run_namehint).convert_alpha()
+player_surface_run_4 = pygame.transform.scale(player_surface_run_4, (player_width, player_height))
+
+player_surface_run_5 = pygame.image.load(player_run_5_url, player_run_namehint).convert_alpha()
+player_surface_run_5 = pygame.transform.scale(player_surface_run_5, (player_width, player_height))
+
+player_surface_run_6 = pygame.image.load(player_run_6_url, player_run_namehint).convert_alpha()
+player_surface_run_6 = pygame.transform.scale(player_surface_run_6, (player_width, player_height))
+
+player_surface_run_7 = pygame.image.load(player_run_7_url, player_run_namehint).convert_alpha()
+player_surface_run_7 = pygame.transform.scale(player_surface_run_7, (player_width, player_height))
+
+player_surface_run_8 = pygame.image.load(player_run_8_url, player_run_namehint).convert_alpha()
+player_surface_run_8 = pygame.transform.scale(player_surface_run_8, (player_width, player_height))
+
+# jumping
+player_surface_jump_1 = pygame.image.load(player_jump_1_url, player_jump_namehint).convert_alpha()
+player_surface_jump_1 = pygame.transform.scale(player_surface_jump_1, (player_width, player_height))
+
+player_surface_jump_2 = pygame.image.load(player_jump_2_url, player_jump_namehint).convert_alpha()
+player_surface_jump_2 = pygame.transform.scale(player_surface_jump_2, (player_width, player_height))
+
+player_surface_jump_3 = pygame.image.load(player_jump_3_url, player_jump_namehint).convert_alpha()
+player_surface_jump_3 = pygame.transform.scale(player_surface_jump_3, (player_width, player_height))
+
+player_surface_jump_4 = pygame.image.load(player_jump_4_url, player_jump_namehint).convert_alpha()
+player_surface_jump_4 = pygame.transform.scale(player_surface_jump_4, (player_width, player_height))
+
+player_surface_jump_5 = pygame.image.load(player_jump_5_url, player_jump_namehint).convert_alpha()
+player_surface_jump_5 = pygame.transform.scale(player_surface_jump_5, (player_width, player_height))
+
+player_surface_jump_6 = pygame.image.load(player_jump_6_url, player_jump_namehint).convert_alpha()
+player_surface_jump_6 = pygame.transform.scale(player_surface_jump_6, (player_width, player_height))
+
+player_surface_jump_7 = pygame.image.load(player_jump_7_url, player_jump_namehint).convert_alpha()
+player_surface_jump_7 = pygame.transform.scale(player_surface_jump_7, (player_width, player_height))
+
+player_surface_jump_8 = pygame.image.load(player_jump_8_url, player_jump_namehint).convert_alpha()
+player_surface_jump_8 = pygame.transform.scale(player_surface_jump_8, (player_width, player_height))
+
+player_surface_jump_9 = pygame.image.load(player_jump_9_url, player_jump_namehint).convert_alpha()
+player_surface_jump_9 = pygame.transform.scale(player_surface_jump_9, (player_width, player_height))
+
+player_surface_jump_10 = pygame.image.load(player_jump_10_url, player_jump_namehint).convert_alpha()
+player_surface_jump_10 = pygame.transform.scale(player_surface_jump_10, (player_width, player_height))
+
+player_surface_jump_11 = pygame.image.load(player_jump_11_url, player_jump_namehint).convert_alpha()
+player_surface_jump_11 = pygame.transform.scale(player_surface_jump_11, (player_width, player_height))
+
+player_surface_jump_12 = pygame.image.load(player_jump_12_url, player_jump_namehint).convert_alpha()
+player_surface_jump_12 = pygame.transform.scale(player_surface_jump_12, (player_width, player_height))
+
+# current enemies
+# [enemy, enemy_width, x_pos, y_pos]
+enemies = []
+
+# current score
+score = 0
+
+# current player
+player_current = player_surface_run_1
+
+# Font
+text_font = pygame.font.Font(font_url, font_size)
+text_surface = text_font.render(game_name, False, font_color)
+
+def draw_ground(x_offset):
+    for i in range(0 - x_offset, screen_width, ground_width):
+        screen.blit(ground_surface, (i, screen_height - ground_offset))
+
+def update_player():
+    global player_current
+    if player_current == player_surface_run_1:
+        player_current = player_surface_run_2
+    elif player_current == player_surface_run_2:
+        player_current = player_surface_run_3
+    elif player_current == player_surface_run_3:
+        player_current = player_surface_run_4
+    elif player_current == player_surface_run_4:
+        player_current = player_surface_run_5
+    elif player_current == player_surface_run_5:
+        player_current = player_surface_run_6
+    elif player_current == player_surface_run_6:
+        player_current = player_surface_run_7
+    elif player_current == player_surface_run_7:
+        player_current = player_surface_run_8
+    elif player_current == player_surface_run_8:
+        player_current = player_surface_run_1
+    elif player_current == player_surface_jump_1:
+        player_current = player_surface_jump_2
+    elif player_current == player_surface_jump_2:
+        player_current = player_surface_jump_3
+    elif player_current == player_surface_jump_3:
+        player_current = player_surface_jump_4
+    elif player_current == player_surface_jump_4:
+        player_current = player_surface_jump_5
+    elif player_current == player_surface_jump_5:
+        player_current = player_surface_jump_6
+    elif player_current == player_surface_jump_6:
+        player_current = player_surface_jump_7
+    elif player_current == player_surface_jump_7:
+        player_current = player_surface_jump_8
+    elif player_current == player_surface_jump_8:
+        player_current = player_surface_jump_9
+    elif player_current == player_surface_jump_9:
+        player_current = player_surface_jump_10
+    elif player_current == player_surface_jump_10:
+        player_current = player_surface_jump_11
+    elif player_current == player_surface_jump_11:
+        player_current = player_surface_jump_12
+    elif player_current == player_surface_jump_12:
+        player_current = player_surface_run_1
+
+while True:
+    # events
+    for event in pygame.event.get():
+        # quit event
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            exit()
+        
+        # spacebar click
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                if(jumps != 2):
+                    up = True
+                    down = False
+                    jumps += 1
+                    player_current = player_surface_jump_1
+
+                    if(jump_ceiling > jump_ceiling_global):
+                        jump_ceiling -= 100
+
+
+    if(up):
+        player_y_pos -= player_speed
+    
+    if(player_y_pos < jump_ceiling):
+        down = True
+        up = False
+    
+    if(down):
+        player_y_pos += player_speed
+        jump_ceiling += player_speed
+
+        if(player_y_pos >= default_player_y_pos):
+            player_y_pos = default_player_y_pos
+            jump_ceiling = player_y_pos
+            player_current = player_surface_run_1
+            jumps = 0
+            down = False
+
+    # update display
+    pygame.display.update()
+
+    screen.blit(desert_background, (0, 0)) # add background
+    draw_ground(ground_x_offset) # add ground
+
+    text_surface = text_font.render(f"Score: {score}", False, font_color)
+    screen.blit(text_surface, (0, 0)) # add text
+    screen.blit(player_current, (0, player_y_pos))
+
+    if delay == 5:
+        update_player()
+
+        ground_x_offset += speed_enemy
+
+        if(ground_x_offset > ground_width):
+            ground_x_offset = 0
+
+        delay = 1
+    delay += 1
+
+    # generate enemies
+    generator = random.randint(0, 100)
+    if(generator%gen_seed == 0):
+        generator1 = random.randint(0, 4)
+
+        if(generator1 == 0):
+            pass
+        elif(generator1 == 1):
+            enemies.append([enemy_cactus1_surface, screen_width - enemy_cactus1_width, screen_height - ground_offset - enemy_cactus1_height])
+        elif(generator1 == 2):
+            enemies.append([enemy_cactus2_surface, screen_width - enemy_cactus2_width, screen_height - ground_offset - enemy_cactus2_height])
+        elif(generator1 == 3):
+            enemies.append([enemy_cactus3_surface, screen_width - enemy_cactus3_width, screen_height - ground_offset - enemy_cactus3_height])
+
+    # remove enemies once they are gone from the screen
+    for enemy in enemies:
+        screen.blit(enemy[0], (enemy[1], enemy[2]))
+        enemy[1] -= speed_enemy
+
+    enemies_copy = enemies.copy();
+    enemies.clear()
+
+    for enemy in enemies_copy:
+        if(enemy[1] < 0): continue
+        enemies.append(enemy)
+    
+    enemies_copy.clear()
+
+    # set maximum fps limit
+    clock.tick(fps)
