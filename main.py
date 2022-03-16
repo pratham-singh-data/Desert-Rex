@@ -9,6 +9,10 @@ screen = pygame.display.set_mode((screen_width, screen_height)) # set screen
 pygame.display.set_caption(game_name)
 clock = pygame.time.Clock() # set max fps timer
 
+# add music
+pygame.mixer.music.load(default_track_url)
+pygame.mixer.music.play(loops, default_track_offset)
+
 # background surface
 desert_background = pygame.image.load(background_url, background_namehint).convert_alpha()
 desert_background = pygame.transform.scale(desert_background, (screen_width, screen_height))
@@ -129,6 +133,21 @@ player_current = player_surface_run_1
 text_font = pygame.font.Font(font_url, font_size)
 restart_font = pygame.font.Font(restart_font_url, restart_font_size)
 
+# start death music
+def death_music():
+    global death_music_startable
+
+    if death_music_startable:
+        death_music_startable = False
+    
+        # play crash tone
+        pygame.mixer.music.load(crash_tone_url)
+        pygame.mixer.music.play(crash_loop, crash_tone_offset)
+
+        # play death music
+        death_music = pygame.mixer.Sound(death_track_url)
+        death_music.play(loops, death_track_offset)
+
 # draw ground
 def draw_ground(x_offset):
     for i in range(0 - x_offset, screen_width, ground_width):
@@ -209,6 +228,7 @@ def restore_defaults():
     global down
     global jump_ceiling
     global jumps
+    global death_music_startable
 
 
     running = True
@@ -220,6 +240,9 @@ def restore_defaults():
     up = down = False
     jump_ceiling = default_player_y_pos
     jumps = 0
+    pygame.mixer.music.load(default_track_url)
+    pygame.mixer.music.play(loops, default_track_offset)
+    death_music_startable = True
 
 # main loop
 while True:
@@ -321,7 +344,12 @@ while True:
         if(enemy[1] + player_x_image_adjustment < player_width and not enemy[3]):
             if(enemy[2] >= player_y_pos + player_height):
                 score += 1
+
+                # play success sound
+                success_tone = pygame.mixer.Sound(success_tone_url)
+                success_tone.play(success_loop, success_tone_offset)
             else:
+                death_music()
                 player_current = player_surface_death_1
                 enemy_speed = 0
                 player_speed = 0
