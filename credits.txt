@@ -27,12 +27,12 @@ Music Used:
     Package Name: Game Success Alerts
     Author Name: Mixkit
     Link: https://mixkit.co/free-sound-effects/alerts
-    License: No Information Provided
+    License: Mixkit License (https://mixkit.co/terms/)
 
     Package Name: Confirmation
     Author Name: Mixkit
     Link: https://mixkit.co/free-sound-effects/alerts/?page=2
-    License: No Information Provided
+    License: Mixkit License (https://mixkit.co/terms/)
 
 
 Font Used:
