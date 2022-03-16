@@ -129,10 +129,12 @@ player_current = player_surface_run_1
 text_font = pygame.font.Font(font_url, font_size)
 restart_font = pygame.font.Font(restart_font_url, restart_font_size)
 
+# draw ground
 def draw_ground(x_offset):
     for i in range(0 - x_offset, screen_width, ground_width):
         screen.blit(ground_surface, (i, screen_height - ground_offset))
 
+# animate player charachter
 def update_player():
     global player_current
     global running
@@ -219,6 +221,7 @@ def restore_defaults():
     jump_ceiling = default_player_y_pos
     jumps = 0
 
+# main loop
 while True:
     # generate scorboard
     scoreboard = f"Score: {score}"
@@ -246,13 +249,16 @@ while True:
                 restore_defaults()
 
 
+    # jumping up
     if(up):
         player_y_pos -= player_speed
     
+    # ceiling reached
     if(player_y_pos < jump_ceiling):
         down = True
         up = False
     
+    # going down
     if(down):
         player_y_pos += player_speed
         jump_ceiling += player_speed
@@ -278,6 +284,7 @@ while True:
     # add player
     screen.blit(player_current, (0, player_y_pos))
 
+    # delay animation so user can perceive it
     if delay == 5:
         update_player()
 
@@ -306,6 +313,7 @@ while True:
         screen.blit(enemy[0], (enemy[1], enemy[2]))
         enemy[1] -= enemy_speed
 
+    # make a duplicate array and copy all but undesired elements back to the original array
     enemies_copy = enemies.copy();
     enemies.clear()
 
