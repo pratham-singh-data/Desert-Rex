@@ -127,6 +127,7 @@ player_current = player_surface_run_1
 
 # Font
 text_font = pygame.font.Font(font_url, font_size)
+restart_font = pygame.font.Font(restart_font_url, restart_font_size)
 
 def draw_ground(x_offset):
     for i in range(0 - x_offset, screen_width, ground_width):
@@ -202,6 +203,10 @@ def restore_defaults():
     global player_speed
     global enemy_speed
     global player_y_pos
+    global up
+    global down
+    global jump_ceiling
+    global jumps
 
 
     running = True
@@ -210,6 +215,9 @@ def restore_defaults():
     player_current = player_surface_run_1
     enemy_speed = player_speed = 5
     player_y_pos = default_player_y_pos
+    up = down = False
+    jump_ceiling = default_player_y_pos
+    jumps = 0
 
 while True:
     # generate scorboard
@@ -259,8 +267,15 @@ while True:
     screen.blit(desert_background, (0, 0)) # add background
     draw_ground(ground_x_offset) # add ground
 
-    text_surface = text_font.render(scoreboard, False, font_color)
+    # add scoreboard
+    text_surface = text_font.render(scoreboard, True, font_color)
     screen.blit(text_surface, (0, 0)) # add text
+
+    # restart message
+    restart_surface = restart_font.render(restart_message, True , restart_font_color)
+    screen.blit(restart_surface, (restart_x_pos, restart_y_pos))
+
+    # add player
     screen.blit(player_current, (0, player_y_pos))
 
     if delay == 5:

@@ -19,6 +19,14 @@ font_url = None
 font_size = 50
 font_color = "#FF00FF"
 
+# Font for score
+restart_font_url = None
+restart_font_size = 20
+restart_font_color = "#000000"
+restart_message = "Press R to restart"
+restart_x_pos = screen_width // 2 - 70
+restart_y_pos = screen_height - 20
+
 # scoreboard
 score = 0
 scoreboard = f"Score: {score}"
