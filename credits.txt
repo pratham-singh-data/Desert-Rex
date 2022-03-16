@@ -2,3 +2,41 @@ Images Used:
     Package Name: Free Desert Platformer Tileset
     Author Name: pzUH
     Link: https://opengameart.org/content/free-desert-platformer-tileset
+    License: Creative Commons (CC0) Universal 1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+
+    Package Name: Free Dino Sprites
+    Author Name: pzUH
+    Link: https://opengameart.org/content/free-dino-sprites
+    License: Creative Commons (CC0) Universal 1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+
+
+Music Used:
+    Package Name: Frog Legs Rag (1906, piano roll)
+    Author Name: James Scott
+    Link: https://www.chosic.com/download-audio/24194/
+    License: Creative Commons (CC0) Universal 1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+    Changes Made: Last 5 seconds of music removed due to track being silent in said duration.
+
+    Package Name: Missing You
+    Author Name: Purrple Cat
+    Link: https://www.chosic.com/download-audio/29965/
+    License: Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) (https://creativecommons.org/licenses/by-sa/3.0/)
+    Changes Made: Last 5 seconds of music removed due to track being silent in said duration.
+    Note: In compliance with the license, my version of the track shall also hold the CC BY-SA 3.0 license
+
+    Package Name: Game Success Alerts
+    Author Name: Mixkit
+    Link: https://mixkit.co/free-sound-effects/alerts
+    License: No Information Provided
+
+    Package Name: Confirmation
+    Author Name: Mixkit
+    Link: https://mixkit.co/free-sound-effects/alerts/?page=2
+    License: No Information Provided
+
+
+Font Used:
+    Package Name: Hubbali
+    Author Name: Erin McLaughlin
+    Link: https://fonts.google.com/specimen/Hubballi
+    License: SIL Open Font License (./Assets/Fonts/OFL.txt)
